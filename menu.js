@@ -12,6 +12,7 @@ const terminal = readLine.createInterface({
 const textoMenu = `
 Olá, eu sou o assistente virtual da Desktop estou aqui para te ajduar
 Para iniciarmos o atendimento preciso saber, você já é nosso cliente?
+0 - Sair
 1 - Sim! Sou cliente.
 2 - Não sou cliente
 `
@@ -19,8 +20,36 @@ const questoes = {
     menuInicial: {
         texto: textoMenu,
         fn: menuInicial
+    },
+    opcao1: {
+        texto: `Por aqui consigo te ajudar com:
+        0 - Problemas técnicos.
+        2 - Pagamento ou segunda via de boleto.
+        3 - Compra ou alteração de Plano.
+        4 - Instalaçao do servico;
+        5 - Cacelamento.
+        
+        O que você precisa?
+        `,
+        fn: opcao1
     }    
 }
+function opcao1(msg) {
+    const opcao1 = Number(msg)
+    if(isNaN(opcao1)) {
+        throw new Error('Não é uma opcao valida', msg)
+    } 
+    switch(opcao1) {
+        case 0:
+            console.log('Problemas técnicos')
+    }
+}
+
+terminal.question(
+    questoes.opcao1.texto,
+    questoes.opcao1.fn
+)
+
 function menuInicial(msg) {
     const opcao = Number(msg)
     if(isNaN(opcao)) {
@@ -28,7 +57,16 @@ function menuInicial(msg) {
     }
     switch(opcao) {
         case 0:
-                console.log()
+                console.log('Saindo...')
+                terminal.close()
+                break;
+        case 1:                        
+            console.log('menu inicial')            
+            break
+        default:
+            console.log('Deseja contratar um plano')
+            terminal.close()
+            break;
     }
 }
 
